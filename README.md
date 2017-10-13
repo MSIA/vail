@@ -24,3 +24,15 @@ Vail group project for Everything Starts with Data MSiA 400
 
 
 ### Job Posting Fields
+
+19.  JVGUID - which is currently in the form of GUID
+20.  DateNew
+21.  DateExpired
+22.  BUID
+23.  CompanyName
+24.  Title - Job title
+25.  OnetCode
+26.  Location - split into State, City
+27.  Link - url of job site
+28.  Description - will try to parse out additional information such as EducationRequired, Requirements, WorkExperience, Skills
+  

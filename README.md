@@ -28,7 +28,7 @@ Vail group project for Everything Starts with Data MSiA 400
 19.  JVGUID - which is currently in the form of GUID
 20.  DateNew
 21.  DateExpired
-22.  BUID - Business id
+22.  BUID - company id
 23.  CompanyName
 24.  Title - Job title
 25.  OnetCode

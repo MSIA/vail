@@ -5,6 +5,7 @@ Spyder Editor
 This is a temporary script file.
 """
 import pandas as pd
+
 from IPython.display import display
 from IPython.display import Image
 #import glob
@@ -22,8 +23,8 @@ newjobs = newjobs[1:]
 
 combined = pd.merge(descripjobs, newjobs, on='JVGUID', how='outer')
 
-
-
+combined['State'] = combined['Location'].str[:2]
+combined['City'] = combined['Location'].str[3:]
 '''
 frame = pd.DataFrame()
 list_ = []
@@ -31,5 +32,5 @@ for file_ in allFiles:
     df = pd.read_csv(file_,index_col=None, header=0)
     list_.append(df)
 frame = pd.concat(list_)
-''' 
+'''
 #\20140211_new.csv"

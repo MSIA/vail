@@ -24,7 +24,7 @@ newjobs = newjobs[1:]
 combined = pd.merge(descripjobs, newjobs, on='JVGUID', how='outer')
 
 combined['State'] = combined['Location'].str[:2]
-combined['City'] = combined['Location'].str[3:]
+combined['City'] = combined['Location'].str[4:]
 '''
 frame = pd.DataFrame()
 list_ = []
@@ -34,3 +34,5 @@ for file_ in allFiles:
 frame = pd.concat(list_)
 '''
 #\20140211_new.csv"
+
+combined[combined['a'].notnull()].head()

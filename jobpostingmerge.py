@@ -36,3 +36,55 @@ frame = pd.concat(list_)
 #\20140211_new.csv"
 
 combined[combined['a'].notnull()].head()
+
+*****
+
+desc_list = combined['Description'].tolist()
+
+import nltk
+from nltk.tokenize import RegexpTokenizer, sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+ps = PorterStemmer()
+
+t = 0
+for desc in desc_list:
+    try:
+        tokens = word_tokenize(desc)
+    except:
+        t+=1
+print(t) #1100 Empty strings out of 38K
+
+combined['Description'] = ['na' if x is np.nan else x for x in combined['Description']]
+
+
+
+from collections import Counter
+N = 100
+
+stopwords = nltk.corpus.stopwords.words('english')
+# RegEx for stopwords
+RE_stopwords = r'\b(?:#-{})\b'.format('|'.join(stopwords))
+# replace '|'-->' ' and drop all stopwords
+words = (combined.Description
+           .str.lower()
+           .replace([r'\|', RE_stopwords], [' ', ''], regex=True)
+           .str.cat(sep=' ')
+           .split())
+words_stem = [ps.stem(w) for w in words]
+
+lemmatizer = WordNetLemmatizer()
+
+words_lemm = [lemmatizer.lemmatize(w) for w in words]
+rslt = pd.DataFrame(Counter(words_lemm).most_common(N),
+                    columns=['Word', 'Frequency']).set_index('Word')
+print(rslt)
+
+
+
+from nltk.collocations import *
+bigram_measures = nltk.collocations.BigramAssocMeasures()
+trigram_measures = nltk.collocations.TrigramAssocMeasures()
+finder = TrigramCollocationFinder.from_words(words)
+finder.nbest(trigram_measures.pmi, 100) 

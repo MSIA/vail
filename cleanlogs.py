@@ -15,9 +15,11 @@ def read_data(path):
         fields = log_file[3].split()[1:]
         # Pulls rows of starting that start on the fifth row of the file
         data = log_file[4:]
-        # Removes rows that are incorrectly parsed (less than 18 fields) and splits data to be loaded into dataframe
-        data = [row.split() for row in data if len(row.split()) == 18]
+        # Splits data to be loaded into dataframe
+        data = [row.split() for row in data]
         df = pd.DataFrame(data, columns=fields)
+        # Removes rows that are incorrectly parsed (last field should be numeric, not string or null)
+        df = df[(df['time-taken'].str.isnumeric() == True)]
         return df
     
 def parse_ids(df):    

@@ -18,6 +18,16 @@ python cleanlogs.py --output_path /home/lab.analytics.northwestern.edu/lgardiner
 
 This will output a clean `.csv` file for every log text file in the original directory. 
 
+## Jobs Postings Data
+
+The jobsmerge.py file walks through the folder containing 'T:\courses\MSiA400\Jobs' which houses all of the raw Jobs postings data.  In the folder there are 3 types of files:
+  New: job posting specifications
+  Description: job posting descriptions
+  Expired: which were made on a daily basis 
+  
+The code utilizes os.walk to go through each file in the folder and creates an aggregated data frame of each of the 3 types of files. Then it combines each of the three files into a single dataframe. 
+
+*Note - The current merged file still contains tuples that were excessively split since there were commas housed within the columns.  This makes up <.001% of files (31,715 out of 4,810,306 entries) and will be fixed in future a iteration of this merge code. 
 
 ## Data Dictionary
 

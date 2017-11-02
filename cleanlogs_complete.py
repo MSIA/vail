@@ -5,8 +5,8 @@ from os.path import join
 import re
 
 parser = argparse.ArgumentParser(description='Clean user logs for Vail Job Ads project')
-parser.add_argument('--input_path', default='/team/courses/MSiA400/Jobs/', help='Path to directory containing data')
-parser.add_argument('--output_path', default='/home/lab.analytics.northwestern.edu/lgardiner/z/vail/data/processed/', help='Path to directory to store clean data')
+parser.add_argument('--input_path', default='T:/courses/MSiA400/Jobs/', help='Path to directory containing data')
+parser.add_argument('--output_path', default='Z:/vail/data/', help='Path to directory to store clean data')
 
 def read_data(path):
     with open(path) as f:
@@ -20,6 +20,7 @@ def read_data(path):
         df = pd.DataFrame(data, columns=fields)
         # Removes rows that are incorrectly parsed (last field should be numeric, not string or null)
         df = df[(df['time-taken'].str.isnumeric() == True)]
+        df['time'] = df['time'].replace('-', '')
         return df
     
 def parse_ids(df):    
@@ -33,35 +34,34 @@ def parse_ids(df):
     return df
 
 def parse_referer(df):
-    refer=[]
-    i=0
-    refer_group=[None]*len(df['cs(Referer)'])
+    refer = []
+    i = 0
+    refer_group = [None]*len(df['cs(Referer)'])
     for url in df['cs(Referer)']:
-        url=re.sub('https?://(www\.)?(m\.)?','',url)
+        url = re.sub('https?://(www\.)?(m\.)?','',url)
         if bool(re.compile('(\.jobs?|jobs?\.)').search(url)):
             parts = re.split('(\.jobs?|jobs?\.)',url)
-            if parts[0]=='':
+            if parts[0] == '':
                 url = parts.pop()
             else:
                 url = parts[0]
         if bool(re.compile('(\.com|\.org|\.net)').search(url)):
                    url = re.split('(\.com|\.org|\.net)',url)[0]
         if bool(re.compile('\.jobamatic').search(url)):
-                   url='simplyhired'
+                   url = 'simplyhired'
         if bool(re.compile('(\.us|us\.)').search(url)):
-                   url='government'
+                   url = 'government'
         if bool(re.compile('(\&|\.|\/)').search(url)):
                    #uk.append(url)
                    #index.append(i)
-            refer_group[i]='unknown'
-        if url=='us':
-            url='government'
+            refer_group[i] = 'unknown'
+        if url == 'us':
+            url = 'government'
         refer.append(url)
-        i=i+1
-    df['refer']=refer
+        i = i+1
+    df['refer'] = refer
     return df
     
-
 def main():
     args = parser.parse_args()
     input_path = args.input_path

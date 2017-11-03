@@ -50,5 +50,16 @@ jobs = pd.merge(combined1, expired, on='JVGUID', how = 'left')
 
 jobs['State'] = jobs['Location'].str[:2]
 jobs['City'] = jobs['Location'].str[3:]
+jobs['ExpiredDate'] = pd.to_datetime(jobs['ExpiredDate'])
+jobs['DateNew'] = pd.to_datetime(jobs['DateNew'])
+jobs['PostLength'] = jobs['ExpiredDate'] - jobs['DateNew']
+
+word = 'director'
+
+jobtitles = ['Manager','Sale','Service','Engineer','Specialist','Assistant','Engineer','Specialist','Assistant','Associate','Tech','Senior','Nurse','Analyst','Representative','Customer','Retail','Account','Consultant','Business','Support','Project','Product','Develop','Manage','Operation','President','Software','Director','Admin','Financ','Clinical','Market','Office','Research']
+
+for jobtitle in jobtitles:
+    jobs['Has'+jobtitle] = jobs.Title.str.contains(jobtitle,case = False)
+
 
 

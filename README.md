@@ -69,6 +69,7 @@ The code utilizes os.walk to go through each file in the folder and creates an a
 29.  cityloc - just city
 30.  fulltime - whether r'full.?time' is in the description field
 31.  parttime - whether r'part.?time' is in the description field
+
 32-46 Whether the word is found in the job title (ex. 'manager' attribute is true if the substring 'manager' is within the 'jobtitle' attribute 
  
   

@@ -69,11 +69,16 @@ def main():
     
     for filename in os.listdir(input_path):
         if filename.endswith('.log'):
-            df = read_data(join(input_path, filename))
-            df = parse_ids(df)
-            df = parse_referer(df)
-            df.to_csv(join(output_path, filename), index=False)
-            print(filename, "cleaned")
+            try:
+                df = read_data(join(input_path, filename))
+                df = parse_ids(df)
+                df = parse_referer(df)
+                df.to_csv(join(output_path, filename), index=False)
+                print(filename, "cleaned")
+            except ValueError as e:
+                print('Error:', e)
+                print('File:', filename)
+                continue
                       
 if __name__ == "__main__":
     main()

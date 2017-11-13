@@ -26,6 +26,56 @@ CREATE TABLE user_click (
 	refer text
 );
 
+CREATE TABLE jobposting
+(
+    jvguid character(255),
+    description text,
+    newdate date,
+    buid character(255),
+    company character(255),
+    jobtitle character(255),
+    onetcode character(255),
+    loc character(255),
+    urllink text,
+    expiredate date,
+    stateloc character(3),
+    cityloc character(255),
+    fulltime boolean,
+    parttime boolean,
+    manager boolean,
+    sale boolean,
+    service boolean,
+    engineer boolean,
+    specialist boolean,
+    assistant boolean,
+    associate boolean,
+    tech boolean,
+    senior boolean,
+    nurse boolean,
+    analyst boolean,
+    representative boolean,
+    customer boolean,
+    retail boolean,
+    account boolean,
+    consultant boolean,
+    business boolean,
+    support boolean,
+    project boolean,
+    product boolean,
+    develop boolean,
+    manage boolean,
+    operation boolean,
+    president boolean,
+    software boolean,
+    director boolean,
+    has_admin boolean,
+    finance boolean,
+    clinical boolean,
+    market boolean,
+    office boolean,
+    research boolean
+);
+
 /* 
 Change the directory in command line to the folder that contains the data and run the following code:
 

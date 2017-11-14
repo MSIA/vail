@@ -1,6 +1,7 @@
 SET ROLE jobs2018;
 
-CREATE TABLE user_click (
+CREATE TABLE user_click 
+(
 	click_date date,
 	click_time time,
 	computer_name varchar(255),
@@ -75,6 +76,11 @@ CREATE TABLE jobposting
     office boolean,
     research boolean
 );
+
+-- Because of data issues uncovered during EDA, we limited our data to records with date range between March and May 2014
+ALTER TABLE user_click RENAME TO user_click_old;
+
+CREATE VIEW user_subset AS SELECT * FROM user_click_old WHERE click_date BETWEEN '03/01/2017' AND '05/31/2017';
 
 /* 
 Change the directory in command line to the folder that contains the data and run the following code:

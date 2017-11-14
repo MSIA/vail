@@ -55,14 +55,21 @@ The code utilizes os.walk to go through each file in the folder and creates an a
 
 ### Job Posting Fields
 
-19.  JVGUID - which is currently in the form of GUID
-20.  DateNew
-21.  DateExpired
-22.  BUID - company id
-23.  CompanyName
-24.  Title - Job title
-25.  OnetCode
-26.  Location - split into State, City
-27.  Link - url of job site
-28.  Description - will try to parse out additional information such as EducationRequired, Requirements, WorkExperience, Skills
+19.  jvguid - which is currently in the form of GUID
+20.  description - is the full text description of the job. Source for the boolean "fulltime" and "parttime"
+21.  newdate - post date
+21.  buid - company id
+22.  company - company name
+23.  jobtitle - job title
+24.  onetcode
+25.  loc - state-city
+26.  urllink - url of job site
+27.  expiredate - date of posting expiration
+28.  stateloc - just state
+29.  cityloc - just city
+30.  fulltime - whether r'full.?time' is in the description field
+31.  parttime - whether r'part.?time' is in the description field
+
+32-46 Whether the word is found in the job title (ex. 'manager' attribute is true if the substring 'manager' is within the 'jobtitle' attribute 
+ 
   

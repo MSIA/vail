@@ -1,5 +1,9 @@
+/* SQL queries below create and populate two tables for the jobs datasets */
+
+-- Set role to ensure other people have access to the database
 SET ROLE jobs2018;
 
+-- Create a table for user clicks
 CREATE TABLE user_click 
 (
 	click_date date,
@@ -27,6 +31,7 @@ CREATE TABLE user_click
 	refer text
 );
 
+-- Create a table for job postings
 CREATE TABLE jobposting
 (
     jvguid character(255),
@@ -77,15 +82,17 @@ CREATE TABLE jobposting
     research boolean
 );
 
--- Because of data issues uncovered during EDA, we limited our data to records with date range between March and May 2014
-ALTER TABLE user_click RENAME TO user_click_old;
-
-CREATE VIEW user_subset AS SELECT * FROM user_click_old WHERE click_date BETWEEN '03/01/2017' AND '05/31/2017';
-
 /* 
 Change the directory in command line to the folder that contains the data and run the following code:
 
 for x in $(ls *.log); do psql -h pg -c "\copy user_click from $x csv header" -d jobs2018; done
 
-Be sure to type out the code above instead of copying and pasting
+To code above will load all files into our database. Be sure to type out the code above instead of copying and pasting.
 */
+
+-- Because of data issues uncovered during EDA, we created a view to limit our data to be between March and May 2014
+ALTER TABLE user_click RENAME TO user_click_old;
+
+CREATE VIEW user_subset AS SELECT * FROM user_click_old WHERE click_date BETWEEN '03/01/2017' AND '05/31/2017';
+
+
